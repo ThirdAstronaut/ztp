@@ -11,7 +11,6 @@ public class Structure {
     private int schoolsNum;
     private int departmentsNum;
     private int studentsNum;
-    private int studentPerDepartment;
 
 
     public List<School> fillStructure(int schoolsNum, int classesNum, int studentsNum) {
@@ -41,8 +40,7 @@ public class Structure {
         this.schoolsNum = schoolsNum;
         this.departmentsNum = classesNum;
         this.studentsNum = studentsNum;
-        this.studentPerDepartment = studentsNum / classesNum;
-    }
+     }
 
     public List<School> cloneUsingLibrary(List<School> school) {
         long start = System.currentTimeMillis();
@@ -58,7 +56,7 @@ public class Structure {
             clonedSchools.add(clone);
 
         }
-        cloneTime /= school.size();
+   //     cloneTime /= school.size();
         reportData(new Throwable().getStackTrace()[0].getMethodName(), System.currentTimeMillis() - start, cloneTime);
         return clonedSchools;
     }
@@ -77,7 +75,7 @@ public class Structure {
 
             clonedSchools.add(clone);
         }
-        cloneTime /= school.size();
+      //  cloneTime /= school.size();
 
         reportData(new Throwable().getStackTrace()[0].getMethodName(), System.currentTimeMillis() - start, cloneTime);
         return clonedSchools;
@@ -98,7 +96,7 @@ public class Structure {
 
             clonedSchools.add(clone);
         }
-        cloneTime /= school.size();
+     //   cloneTime /= school.size();
 
         reportData(new Throwable().getStackTrace()[0].getMethodName(), System.currentTimeMillis() - start, cloneTime);
         return clonedSchools;
@@ -106,15 +104,15 @@ public class Structure {
 
 
     public static void reportData(String methodName, long stop, long cloneTime) {
-        System.out.println(methodName + " : " + stop + ", czas wykonania metody");
-        System.out.println(methodName + " : " + TimeUnit.NANOSECONDS.toMicros(cloneTime) + ", czas klonowań");
+//        System.out.println(methodName + " : " + stop + "[ms], czas wykonania metody");
+        System.out.println(methodName + " : " + TimeUnit.NANOSECONDS.toMicros(cloneTime) + "[µs], czas klonowań");
     }
 
 
     public void testCloning(List<School> schools, List<School> clonedSchoolCloneMethod, List<School> clonedSchoolLibrary, List<School> clonedSchoolGson) {
 
         int departmentNum = new Random().nextInt(departmentsNum);
-        int studentNum = new Random().nextInt(studentPerDepartment);
+        int studentNum = new Random().nextInt(studentsNum);
         changeData(schools, departmentNum, studentNum);
 
      /*  for (School s : schools) {
