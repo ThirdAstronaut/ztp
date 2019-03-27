@@ -2,11 +2,12 @@ package zad2_2;
 
 import lombok.ToString;
 
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 @ToString
-public class Pair<T> implements Cloneable{
+public class Pair<T> implements Cloneable, Serializable {
     private T fieldFirst;
     private T fieldSecond;
 
@@ -48,5 +49,20 @@ public class Pair<T> implements Cloneable{
 
     public void setFieldSecond(T fieldSecond) {
         this.fieldSecond = fieldSecond;
+    }
+
+    public static Object clone(Object object){
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            oos.writeObject(object);
+            ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            return ois.readObject();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -3,7 +3,7 @@ package zad2_2;
 
 public class CloningMain {
 
-    public static void main(String... args){
+    public static void main(String... args) {
 
         Pair<Boolean> booleanPair = new Pair<>();
         booleanPair.setFieldFirst(true);
@@ -15,19 +15,15 @@ public class CloningMain {
 
 
         Pair<CustomTypeCloneable> customPair = new Pair<>();
-        customPair.setFieldFirst(new CustomTypeCloneable("a",1));
-        customPair.setFieldFirst(new CustomTypeCloneable("b",2));
+        customPair.setFieldFirst(new CustomTypeCloneable("a", 1));
+        customPair.setFieldSecond(new CustomTypeCloneable("b", 2));
 
-
-        Pair<CustomTypeNotCloneable> customPairNotCloneable = new Pair<>();
-        customPairNotCloneable.setFieldFirst(new CustomTypeNotCloneable());
-        customPairNotCloneable.setFieldFirst(new CustomTypeNotCloneable());
-
-        try {
-            Pair clonedBooleanPair = (Pair) booleanPair.clone();
-            Pair clonedLongPair = (Pair) longPair.clone();
-            Pair clonedCustomTypeCloneable = (Pair) customPair.clone();
-            Pair clonedCustomTypeNotCloneable = (Pair) customPairNotCloneable.clone();
+          try {
+            Pair clonedBooleanPair = booleanPair.clone();
+            //Pair clonedBooleanPair = (Pair) booleanPair.clone(booleanPair);
+            Pair clonedLongPair = longPair.clone();
+            //Pair clonedLongPair = (Pair) longPair.clone(longPair);
+            Pair clonedCustomTypeCloneable = customPair.clone();
 
             System.out.println("original " + booleanPair.toString());
             booleanPair.setFieldFirst(false);
@@ -35,6 +31,13 @@ public class CloningMain {
             System.out.println("original " + longPair.toString());
             longPair.setFieldFirst(999999999999L);
             System.out.println("cloned " + clonedLongPair.toString());
+
+            System.out.println("original " + customPair.toString());
+            customPair.setFieldFirst(new CustomTypeCloneable("ORYGINAL", -1));
+            System.out.println("original " + customPair.toString() + "ORYGINAL PO ZMIANACH");
+            System.out.println("cloned " + clonedCustomTypeCloneable.toString() + " CLONE PRZED ZMIANAMI");
+
+
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }

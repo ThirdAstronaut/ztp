@@ -4,6 +4,7 @@ import org.kamranzafar.commons.cloner.ObjectCloner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class Structure {
 
@@ -47,24 +48,38 @@ public class Structure {
         long start = System.currentTimeMillis();
         ObjectCloner objectCloner = new ObjectCloner();
         List<School> clonedSchools = new ArrayList<>();
+        long cloneTime = 0L;
         for (School s : school) {
-            clonedSchools.add((School) objectCloner.deepClone(s));
+
+            long cloneStart = System.nanoTime();
+            School clone = (School) objectCloner.deepClone(s);
+            cloneTime += System.nanoTime() - cloneStart;
+
+            clonedSchools.add(clone);
 
         }
-        long stop = System.currentTimeMillis() - start;
-        reportData(new Throwable().getStackTrace()[0].getMethodName(), stop);
+        cloneTime /= school.size();
+        reportData(new Throwable().getStackTrace()[0].getMethodName(), System.currentTimeMillis() - start, cloneTime);
         return clonedSchools;
     }
+
 
 
     public List<School> cloneMethod(List<School> school) throws CloneNotSupportedException {
         long start = System.currentTimeMillis();
         List<School> clonedSchools = new ArrayList<>();
+        long cloneTime = 0L;
+
         for (School s : school) {
-            clonedSchools.add(s.clone());
+            long cloneStart = System.nanoTime();
+            School clone =  s.clone();
+            cloneTime += System.nanoTime() - cloneStart;
+
+            clonedSchools.add(clone);
         }
-        long stop = System.currentTimeMillis() - start;
-        reportData(new Throwable().getStackTrace()[0].getMethodName(), stop);
+        cloneTime /= school.size();
+
+        reportData(new Throwable().getStackTrace()[0].getMethodName(), System.currentTimeMillis() - start, cloneTime);
         return clonedSchools;
 
     }
@@ -74,18 +89,25 @@ public class Structure {
         long start = System.currentTimeMillis();
         Gson gson = new Gson();
         List<School> clonedSchools = new ArrayList<>();
-        for (School s : school) {
-            clonedSchools.add(gson.fromJson(gson.toJson(s), School.class));
-        }
-        long stop = System.currentTimeMillis() - start;
-        reportData(new Throwable().getStackTrace()[0].getMethodName(), stop);
-        return clonedSchools;
+        long cloneTime = 0L;
 
+        for (School s : school) {
+            long cloneStart = System.nanoTime();
+            School clone =  gson.fromJson(gson.toJson(s), School.class);
+            cloneTime += System.nanoTime() - cloneStart;
+
+            clonedSchools.add(clone);
+        }
+        cloneTime /= school.size();
+
+        reportData(new Throwable().getStackTrace()[0].getMethodName(), System.currentTimeMillis() - start, cloneTime);
+        return clonedSchools;
     }
 
 
-    public void reportData(String methodName, long stop) {
-        System.out.println(methodName + " : " + stop);
+    public static void reportData(String methodName, long stop, long cloneTime) {
+        System.out.println(methodName + " : " + stop + ", czas wykonania metody");
+        System.out.println(methodName + " : " + TimeUnit.NANOSECONDS.toMicros(cloneTime) + ", czas klonowań");
     }
 
 
@@ -94,22 +116,23 @@ public class Structure {
         int departmentNum = new Random().nextInt(departmentsNum);
         int studentNum = new Random().nextInt(studentPerDepartment);
         changeData(schools, departmentNum, studentNum);
-/*
-        for (School s : schools) {
+
+     /*  for (School s : schools) {
             System.out.println("CHANGED NAME : " + s.getDepartments().get(departmentNum).getStudents().get(studentNum).getName());
             System.out.println("CHANGED SYMBOL : " + s.getDepartments().get(departmentNum).getSymbol());
+            System.out.println("CHANGED SCHOOL_NAME : " + s.getName());
         }
         for (School s : clonedSchoolCloneMethod) {
             System.out.println("CLONE_METHOD NAME : " + s.getDepartments().get(departmentNum).getStudents().get(studentNum).getName());
             System.out.println("CLONE_METHOD SYMBOL : " + s.getDepartments().get(departmentNum).getSymbol());
-            System.out.println("CLONE_METHOD SYMBOL : " + s.getName());
+            System.out.println("CLONE SCHOOL_NAME : " + s.getName());
 
         }
 
         for (School s : clonedSchoolLibrary) {
             System.out.println("LIBRARY NAME : " + s.getDepartments().get(departmentNum).getStudents().get(studentNum).getName());
             System.out.println("LIBRARY SYMBOL : " + s.getDepartments().get(departmentNum).getSymbol());
-            System.out.println("CLONE_METHOD SYMBOL : " + s.getName());
+            System.out.println("LIBRARY SCHOOL_NAME : " + s.getName());
 
         }
 
@@ -121,7 +144,7 @@ public class Structure {
 */
     }
 
-    public void changeData(List<School> schools, int departmentNum, int studentNum) {
+    private void changeData(List<School> schools, int departmentNum, int studentNum) {
         for (School s : schools) {
             s.getDepartments().get(departmentNum).getStudents().get(studentNum).setName("CHANGED_NAME");
             s.getDepartments().get(departmentNum).setSymbol("CHANGED_SYMBOL");
@@ -149,6 +172,5 @@ public class Structure {
 
 
         return schools;
-
     }
 }
