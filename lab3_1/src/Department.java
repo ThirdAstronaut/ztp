@@ -1,9 +1,8 @@
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-public class Department implements Cloneable{
+public class Department implements Cloneable {
     private String symbol;
     private List<Student> students;
 
@@ -33,7 +32,7 @@ public class Department implements Cloneable{
     }
 
     @Override
-    protected Department clone(){
+    protected Department clone() {
         Department clone = new Department();
         clone.symbol = this.symbol;
         clone.students = this.students.stream().map(Student::clone).collect(toList());

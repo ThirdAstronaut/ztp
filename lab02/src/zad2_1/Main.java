@@ -23,12 +23,12 @@ public class Main {
             for (Pair p : pairArr) {
                 System.out.println(p.toString() + "Pair Array");
             }
-            /** BŁĄD KOMPPILACJI */
+            /* BŁĄD KOMPPILACJI */
             //Pair<Integer>[] paramArray = new Pair<Integer>[2];
 
             Pair<Integer>[] paramArray = (Pair<Integer>[]) java.lang.reflect.Array.newInstance(integerPair.getClass(), 5);
-            paramArray[0] =  integerPair;
-            /** błąd kompilacji */
+            paramArray[0] = integerPair;
+            /* Błąd kompilacji */
             //paramArray[2] = (Pair<String>) stringPair;
 
             System.out.println(paramArray[0].toString());

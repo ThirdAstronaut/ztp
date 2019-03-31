@@ -3,21 +3,18 @@ import java.util.List;
 public class Main {
 
     public static void main(String... args) throws CloneNotSupportedException {
-        Structure structure = new Structure();
+        Algorithm structure = new Algorithm();
 
-//        List<School> schools = structure.fillStructure(100, 9, 90);
-        List<School> schools = structure.fillStructureOtherWay(1, 1000, 1000);
+        List<School> schools = structure.fillStructureOtherWay(1, 10, 10);
 
         List<School> clonedSchoolCloneMethod = structure.cloneMethod(schools);
         List<School> clonedSchoolLibrary = structure.cloneUsingLibrary(schools);
         List<School> clonedSchoolGson = structure.cloneGson(schools);
 
 
-           structure.testCloning(schools, clonedSchoolCloneMethod, clonedSchoolLibrary, clonedSchoolGson);
+        structure.testCloning(schools, clonedSchoolCloneMethod, clonedSchoolLibrary, clonedSchoolGson);
 
-        //  List<School> clonedSchoolCustom = structure.cloneMethod(schools);  System.out.println(clonedSchoolCustom.get(0).getDepartments().get(0).getStudents().get(1).getName());
-
-
+//        List<School> schools = structure.fillStructure(100, 9, 90);
 
 //        System.out.println(schools.size() + " school size");
 //        System.out.println(schools.get(0).getDepartments().size() + " departments size");

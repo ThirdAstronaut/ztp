@@ -18,17 +18,19 @@ public class CloningMain {
         customPair.setFieldFirst(new CustomTypeCloneable("a", 1));
         customPair.setFieldSecond(new CustomTypeCloneable("b", 2));
 
-          try {
-            Pair clonedBooleanPair = booleanPair.clone();
-            //Pair clonedBooleanPair = (Pair) booleanPair.clone(booleanPair);
-            Pair clonedLongPair = longPair.clone();
             //Pair clonedLongPair = (Pair) longPair.clone(longPair);
+            //Pair clonedBooleanPair = (Pair) booleanPair.clone(booleanPair);
+
+            Pair clonedBooleanPair = booleanPair.clone();
+            Pair clonedLongPair = longPair.clone();
             Pair clonedCustomTypeCloneable = customPair.clone();
 
             System.out.println("original " + booleanPair.toString());
             booleanPair.setFieldFirst(false);
             System.out.println("cloned " + clonedBooleanPair.toString());
-            System.out.println("original " + longPair.toString());
+        System.out.println("original " + booleanPair.toString()+"NOWE");
+
+        System.out.println("original " + longPair.toString());
             longPair.setFieldFirst(999999999999L);
             System.out.println("cloned " + clonedLongPair.toString());
 
@@ -37,10 +39,6 @@ public class CloningMain {
             System.out.println("original " + customPair.toString() + "ORYGINAL PO ZMIANACH");
             System.out.println("cloned " + clonedCustomTypeCloneable.toString() + " CLONE PRZED ZMIANAMI");
 
-
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
     }
 
 }

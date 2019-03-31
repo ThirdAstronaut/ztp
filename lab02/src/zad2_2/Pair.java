@@ -4,7 +4,6 @@ import lombok.ToString;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 @ToString
 public class Pair<T> implements Cloneable, Serializable {
@@ -20,13 +19,13 @@ public class Pair<T> implements Cloneable, Serializable {
     }
 
     @Override
-    public Pair clone() throws CloneNotSupportedException {
+    public Pair clone() {
         Pair<T> clone = new Pair<>();
 
-        try{
+        try {
             clone.fieldFirst = (T) this.fieldFirst.getClass().getMethod("clone").invoke(this.fieldFirst);
             clone.fieldSecond = (T) this.fieldSecond.getClass().getMethod("clone").invoke(this.fieldSecond);
-        } catch ( NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
             clone.fieldFirst = this.fieldFirst;
             clone.fieldSecond = this.fieldSecond;
         } catch (IllegalAccessException | InvocationTargetException e) {
@@ -51,7 +50,7 @@ public class Pair<T> implements Cloneable, Serializable {
         this.fieldSecond = fieldSecond;
     }
 
-    public static Object clone(Object object){
+    /*public static Object clone(Object object) {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(baos);
@@ -59,10 +58,9 @@ public class Pair<T> implements Cloneable, Serializable {
             ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
             ObjectInputStream ois = new ObjectInputStream(bais);
             return ois.readObject();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-    }
+    }*/
 }

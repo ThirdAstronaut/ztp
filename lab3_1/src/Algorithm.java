@@ -6,25 +6,23 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class Structure {
+class Algorithm {
 
     private int schoolsNum;
     private int departmentsNum;
     private int studentsNum;
 
-
-    public List<School> fillStructure(int schoolsNum, int classesNum, int studentsNum) {
+    public List<School> fillStructureOtherWay(int schoolsNum, int classesNum, int studentsNum) {
         List<School> schools = new ArrayList<>();
         for (int i = 0; i < schoolsNum; i++) {
-            int counter = 0;
             List<Department> departments = new ArrayList<>();
             for (int j = 0; j < classesNum; j++) {
                 List<Student> students = new ArrayList<>();
                 for (int k = 0; k < studentsNum; k++) {
                     students.add(new Student(k + "_name_" + j, k + "_lastname_" + j));
                 }
-                departments.add(new Department(i + "_a_" + j, students.subList(counter, counter + (studentsNum / classesNum))));
-                counter += studentsNum / classesNum;
+                departments.add(new Department(i + "_a_" + j, students));
+
             }
             schools.add(new School("school_" + (i), departments));
         }
@@ -33,14 +31,13 @@ public class Structure {
 
 
         return schools;
-
     }
 
     private void setVariables(int schoolsNum, int classesNum, int studentsNum) {
         this.schoolsNum = schoolsNum;
         this.departmentsNum = classesNum;
         this.studentsNum = studentsNum;
-     }
+    }
 
     public List<School> cloneUsingLibrary(List<School> school) {
         long start = System.currentTimeMillis();
@@ -56,11 +53,10 @@ public class Structure {
             clonedSchools.add(clone);
 
         }
-   //     cloneTime /= school.size();
+        //     cloneTime /= school.size();
         reportData(new Throwable().getStackTrace()[0].getMethodName(), System.currentTimeMillis() - start, cloneTime);
         return clonedSchools;
     }
-
 
 
     public List<School> cloneMethod(List<School> school) throws CloneNotSupportedException {
@@ -70,12 +66,12 @@ public class Structure {
 
         for (School s : school) {
             long cloneStart = System.nanoTime();
-            School clone =  s.clone();
+            School clone = s.clone();
             cloneTime += System.nanoTime() - cloneStart;
 
             clonedSchools.add(clone);
         }
-      //  cloneTime /= school.size();
+        //  cloneTime /= school.size();
 
         reportData(new Throwable().getStackTrace()[0].getMethodName(), System.currentTimeMillis() - start, cloneTime);
         return clonedSchools;
@@ -91,12 +87,12 @@ public class Structure {
 
         for (School s : school) {
             long cloneStart = System.nanoTime();
-            School clone =  gson.fromJson(gson.toJson(s), School.class);
+            School clone = gson.fromJson(gson.toJson(s), School.class);
             cloneTime += System.nanoTime() - cloneStart;
 
             clonedSchools.add(clone);
         }
-     //   cloneTime /= school.size();
+        //   cloneTime /= school.size();
 
         reportData(new Throwable().getStackTrace()[0].getMethodName(), System.currentTimeMillis() - start, cloneTime);
         return clonedSchools;
@@ -115,7 +111,7 @@ public class Structure {
         int studentNum = new Random().nextInt(studentsNum);
         changeData(schools, departmentNum, studentNum);
 
-     /*  for (School s : schools) {
+       for (School s : schools) {
             System.out.println("CHANGED NAME : " + s.getDepartments().get(departmentNum).getStudents().get(studentNum).getName());
             System.out.println("CHANGED SYMBOL : " + s.getDepartments().get(departmentNum).getSymbol());
             System.out.println("CHANGED SCHOOL_NAME : " + s.getName());
@@ -139,7 +135,7 @@ public class Structure {
             System.out.println("GSON SYMBOL : " + s.getDepartments().get(departmentNum).getSymbol());
             System.out.println("GSON SCHOOL_NAME : " + s.getName());
         }
-*/
+
     }
 
     private void changeData(List<School> schools, int departmentNum, int studentNum) {
@@ -151,17 +147,23 @@ public class Structure {
     }
 
 
-    public List<School> fillStructureOtherWay(int schoolsNum, int classesNum, int studentsNum) {
+
+
+
+
+    /*
+    public List<School> fillStructure(int schoolsNum, int classesNum, int studentsNum) {
         List<School> schools = new ArrayList<>();
         for (int i = 0; i < schoolsNum; i++) {
+            int counter = 0;
             List<Department> departments = new ArrayList<>();
             for (int j = 0; j < classesNum; j++) {
                 List<Student> students = new ArrayList<>();
                 for (int k = 0; k < studentsNum; k++) {
                     students.add(new Student(k + "_name_" + j, k + "_lastname_" + j));
                 }
-                departments.add(new Department(i + "_a_" + j, students));
-
+                departments.add(new Department(i + "_a_" + j, students.subList(counter, counter + (studentsNum / classesNum))));
+                counter += studentsNum / classesNum;
             }
             schools.add(new School("school_" + (i), departments));
         }
@@ -170,5 +172,8 @@ public class Structure {
 
 
         return schools;
+
     }
+    */
+
 }
