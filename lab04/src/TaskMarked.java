@@ -9,8 +9,8 @@ public class TaskMarked implements TaskState {
 
     @Override
     public void perform() {
-        MARK mark = MARK.values()[new Random().nextInt(MARK.values().length) -1];
+        Mark mark = Mark.values()[new Random().nextInt(Mark.values().length) - 1];
         task.setMark(mark);
-        System.out.println("Zadanie ocenione na : " +  task.getMark());
+        System.out.println("Zadanie ocenione na : " + task.getMark());
     }
 }

@@ -8,8 +8,7 @@ public class Main {
         StudentIT student = new StudentIT("Rafał", "Lechowicz");
         student.toDo();
         TaskContext taskContext = new TaskContext();
-        Task task = new Task.TaskBuilder().description("Zadanie 4 ztp").author("B.Hnatkowska").creationDate(LocalDate.parse("2019-04-03")).build();
-
+        Task task = new Task.TaskBuilder().description("Zadanie 4").author("M.Kowalska").creationDate(LocalDate.parse("2019-04-03")).build();
 
         taskContext.setTaskState(new TaskCreated(task));
         taskContext.request();

@@ -1,4 +1,3 @@
-import lombok.Builder;
 import lombok.ToString;
 
 import java.time.LocalDate;
@@ -10,7 +9,7 @@ public class Task {
     private LocalDate dueDate;
     private LocalDate creationDate;
     private String author;
-    private MARK mark;
+    private Mark mark;
 
     public void displayTask(){
         System.out.println(toString());
@@ -52,20 +51,16 @@ public class Task {
         return this;
     }
 
-    public MARK getMark() {
+    public Mark getMark() {
         return mark;
     }
 
-    public Task setMark(MARK mark) {
+    public Task setMark(Mark mark) {
         this.mark = mark;
         return this;
     }
 }*/
 
-
-
-import java.time.LocalDate;
-import java.util.Date;
 @ToString
 public class Task {
 
@@ -73,7 +68,7 @@ public class Task {
     private LocalDate dueDate;
     private LocalDate creationDate;
     private String author;
-    private MARK mark;
+    private Mark mark;
     private boolean isSent;
 
     private Task(TaskBuilder taskBuilder) {
@@ -97,7 +92,7 @@ public class Task {
         return author;
     }
 
-    public MARK getMark() {
+    public Mark getMark() {
         return mark;
     }
 
@@ -121,7 +116,8 @@ public class Task {
         this.author = author;
     }
 
-    public void setMark(MARK mark) {
+
+    public void setMark(Mark mark) {
         this.mark = mark;
     }
 
@@ -133,10 +129,9 @@ public class Task {
         isSent = sent;
     }
 
-    public void displayTask(){
+    public void displayTask() {
         System.out.println(toString());
     }
-
 
 
     public static class TaskBuilder {
@@ -145,7 +140,7 @@ public class Task {
         private String description;
         private LocalDate dueDate;
         private String author;
-        private MARK mark;
+        private Mark mark;
         private LocalDate creationDate;
 
         public TaskBuilder description(String description) {
@@ -163,10 +158,11 @@ public class Task {
             return this;
         }
 
-        public TaskBuilder mark(MARK mark) {
+        public TaskBuilder mark(Mark mark) {
             this.mark = mark;
             return this;
         }
+
 
         public TaskBuilder creationDate(LocalDate date) {
             this.creationDate = date;
@@ -177,6 +173,7 @@ public class Task {
             this.isSent = isSent;
             return this;
         }
+
 
         public Task build() {
             return new Task(this);

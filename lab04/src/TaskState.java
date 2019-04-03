@@ -1,4 +1,5 @@
 public interface TaskState {
 
-void perform();
+    void perform();
+
 }

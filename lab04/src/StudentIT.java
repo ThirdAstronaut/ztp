@@ -11,7 +11,7 @@ class StudentIT extends Student {
     }
 
     void toDo() {
-        if (tasks.isEmpty()){
+        if (tasks.isEmpty()) {
             System.out.println("Nie masz zadań.");
         } else {
             tasks.forEach(Task::displayTask);

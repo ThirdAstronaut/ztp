@@ -10,7 +10,7 @@ public class TaskContext {
         return taskState;
     }
 
-    void request(){
+    void request() {
         this.taskState.perform();
     }
 
